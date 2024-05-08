@@ -9,78 +9,103 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
-
+    
+    @State var currentDate: Date = .init()
+    
+    @State var weekSlider: [[Date.WeekDay]] = []
+    @State var currentWeekIndex: Int = 0
+    
+    @Namespace private var animation
+    
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
+        VStack(alignment: .leading, spacing: 0, content:  {
+            VStack(alignment: .leading, content: {
+                Text("Calender")
+                    .font(.system(size: 36, weight: .semibold))
+                
+                //Week Slider
+                TabView(selection: $currentWeekIndex,
+                        content:  {
+                    ForEach(weekSlider.indices, id: \.self) { index in
+                        let week = weekSlider[index]
+                        
+                        weekView(week)
+                            .tag(index)
                     }
-                }
-                .onDelete(perform: deleteItems)
+                })
+                .tabViewStyle(.page(indexDisplayMode: .never))
+                .frame(height: 90)
+            })
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background {
+                Rectangle().fill(.gray.opacity(0.2))
+                    .clipShape(.rect(bottomLeadingRadius: 30, bottomTrailingRadius: 30))
+                    .ignoresSafeArea()
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
+            
+            Spacer()
+        })
+        .frame(maxWidth: .infinity)
+        .onAppear() {
+            if weekSlider.isEmpty {
+                let currentWeek = Date().fetchWeek()
+                
+                if let firstDate = currentWeek.first?.date {
+                    weekSlider.append(firstDate.createPreviousWeek())
                 }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
+                
+                weekSlider.append(currentWeek)
+                
+                if let lastDate = currentWeek.last?.date {
+                    weekSlider.append(lastDate.createNextWeek())
                 }
             }
-            Text("Select an item")
         }
     }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+    
+    // Week View
+    @ViewBuilder
+    func weekView(_ week: [Date.WeekDay]) -> some View {
+        HStack(spacing: 0) {
+            ForEach(week) { day in
+                VStack {
+                    Text(day.date.format("E"))
+                        .font(.callout)
+                        .fontWeight(.medium)
+                        .textScale(.secondary)
+                        .foregroundStyle(.gray)
+                    
+                    Text(day.date.format("dd"))
+                        .font(.system(size: 20))
+                        .frame(width: 50, height: 55)
+                        .foregroundStyle(isSameDate(day.date, currentDate) ? .white : .black)
+                        .background(content: {
+                            if isSameDate(day.date, currentDate) {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(.black)
+                                    .offset(y: 2)
+                                    .matchedGeometryEffect(id: "TABINDICATOR", in: animation)
+                            }
+                            
+                            if day.date.isToday {
+                                Circle()
+                                    .fill(.white)
+                                    .frame(width: 5, height: 5)
+                                    .vSpacing(.bottom)
+                            }
+                        })
+                }
+                .hSpacing(.center)
+                .onTapGesture {
+                    withAnimation(.snappy) {
+                        currentDate = day.date
+                    }
+                }
             }
         }
     }
 }
-
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
-
 #Preview {
-    ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    ContentView()
 }

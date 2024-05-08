@@ -13,6 +13,9 @@
 		5522B4012BEAD4F500D9FC43 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5522B4002BEAD4F500D9FC43 /* Preview Assets.xcassets */; };
 		5522B4032BEAD4F500D9FC43 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5522B4022BEAD4F500D9FC43 /* Persistence.swift */; };
 		5522B4062BEAD4F500D9FC43 /* Task_Up.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5522B4042BEAD4F500D9FC43 /* Task_Up.xcdatamodeld */; };
+		5522B40D2BEADC2300D9FC43 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5522B40C2BEADC2300D9FC43 /* Task.swift */; };
+		5522B40F2BEADE3300D9FC43 /* +View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5522B40E2BEADE3300D9FC43 /* +View.swift */; };
+		5522B4112BEAE11D00D9FC43 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5522B4102BEAE11D00D9FC43 /* DateExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +26,9 @@
 		5522B4002BEAD4F500D9FC43 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5522B4022BEAD4F500D9FC43 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		5522B4052BEAD4F500D9FC43 /* Task_Up.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Task_Up.xcdatamodel; sourceTree = "<group>"; };
+		5522B40C2BEADC2300D9FC43 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		5522B40E2BEADE3300D9FC43 /* +View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+View.swift"; sourceTree = "<group>"; };
+		5522B4102BEAE11D00D9FC43 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +62,10 @@
 			isa = PBXGroup;
 			children = (
 				5522B3F92BEAD4F200D9FC43 /* Task_UpApp.swift */,
+				5522B40C2BEADC2300D9FC43 /* Task.swift */,
+				5522B40E2BEADE3300D9FC43 /* +View.swift */,
 				5522B3FB2BEAD4F200D9FC43 /* ContentView.swift */,
+				5522B4102BEAE11D00D9FC43 /* DateExtension.swift */,
 				5522B3FD2BEAD4F500D9FC43 /* Assets.xcassets */,
 				5522B4022BEAD4F500D9FC43 /* Persistence.swift */,
 				5522B4042BEAD4F500D9FC43 /* Task_Up.xcdatamodeld */,
@@ -144,7 +153,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5522B4032BEAD4F500D9FC43 /* Persistence.swift in Sources */,
+				5522B4112BEAE11D00D9FC43 /* DateExtension.swift in Sources */,
 				5522B3FC2BEAD4F200D9FC43 /* ContentView.swift in Sources */,
+				5522B40F2BEADE3300D9FC43 /* +View.swift in Sources */,
+				5522B40D2BEADC2300D9FC43 /* Task.swift in Sources */,
 				5522B3FA2BEAD4F200D9FC43 /* Task_UpApp.swift in Sources */,
 				5522B4062BEAD4F500D9FC43 /* Task_Up.xcdatamodeld in Sources */,
 			);
