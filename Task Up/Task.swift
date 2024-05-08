@@ -11,7 +11,7 @@ struct Task: Identifiable {
     var id: UUID = .init()
     var title: String
     var caption: String
-    var Date: Date = .init()
+    var date: Date = .init()
     var isCompleted = false
     var tint: Color
 }

@@ -13,9 +13,13 @@ struct ContentView: View {
     @State var currentDate: Date = .init()
     
     @State var weekSlider: [[Date.WeekDay]] = []
-    @State var currentWeekIndex: Int = 0
+    @State var currentWeekIndex: Int = 1
     
     @Namespace private var animation
+    
+    @State private var createWeek: Bool = false
+    
+    @State private var tasks: [Task] = sampleTask.sorted(by: { $1.date > $0.date })
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0, content:  {
@@ -43,9 +47,22 @@ struct ContentView: View {
                     .clipShape(.rect(bottomLeadingRadius: 30, bottomTrailingRadius: 30))
                     .ignoresSafeArea()
             }
+            .onChange(of: currentWeekIndex, initial: false) { oldValue, newValue in
+                if newValue == 0 || newValue == (weekSlider.count - 1) {
+                    createWeek = true
+                }
+            }
             
-            Spacer()
+            ScrollView(.vertical) {
+                VStack {
+                    taskView()
+                }
+                .hSpacing(.center)
+                .vSpacing(.center)
+            }
+            .scrollIndicators(.hidden)
         })
+        .vSpacing(.top)
         .frame(maxWidth: .infinity)
         .onAppear() {
             if weekSlider.isEmpty {
@@ -104,6 +121,54 @@ struct ContentView: View {
                 }
             }
         }
+        .background {
+            GeometryReader {
+                let minX = $0.frame(in: .global).minX
+                
+                Color.clear
+                    .preference(key: OffsetKey.self, value: minX)
+                    .onPreferenceChange(OffsetKey.self, perform: { value in
+                        if value.rounded() == 15 && createWeek {
+                            paginateWeek()
+                            createWeek = false
+                        }
+                    })
+            }
+        }
+    }
+    
+    func paginateWeek() {
+        if weekSlider.indices.contains(currentWeekIndex) {
+            if let firstDate = weekSlider[currentWeekIndex].first?.date, currentWeekIndex == 0 {
+                weekSlider.insert(firstDate.createPreviousWeek(), at: 0)
+                weekSlider.removeLast()
+                currentWeekIndex = 1
+            }
+            
+            if let lastDate = weekSlider[currentWeekIndex].last?.date, currentWeekIndex == (weekSlider.count - 1) {
+                weekSlider.append(lastDate.createNextWeek())
+                weekSlider.removeFirst()
+                currentWeekIndex = weekSlider.count - 2
+            }
+        }
+    }
+    
+    // Tasks View
+    @ViewBuilder
+    func taskView() -> some View {
+        VStack(alignment: .leading, content: {
+            ForEach($tasks) { $task in
+                TaskItem(task: $task)
+                    .background(alignment: .leading) {
+                        if tasks.last?.id != task.id {
+                            Rectangle()
+                                .frame(width: 1)
+                                .offset(x: 24, y: 45)
+                        }
+                    }
+            }
+        })
+        .padding(.top)
     }
 }
 #Preview {

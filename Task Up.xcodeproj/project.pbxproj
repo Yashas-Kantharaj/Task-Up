@@ -16,6 +16,8 @@
 		5522B40D2BEADC2300D9FC43 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5522B40C2BEADC2300D9FC43 /* Task.swift */; };
 		5522B40F2BEADE3300D9FC43 /* +View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5522B40E2BEADE3300D9FC43 /* +View.swift */; };
 		5522B4112BEAE11D00D9FC43 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5522B4102BEAE11D00D9FC43 /* DateExtension.swift */; };
+		5522B4132BEAFCF900D9FC43 /* OffsetKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5522B4122BEAFCF900D9FC43 /* OffsetKey.swift */; };
+		5522B4152BEB087B00D9FC43 /* TaskItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5522B4142BEB087B00D9FC43 /* TaskItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,8 @@
 		5522B40C2BEADC2300D9FC43 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		5522B40E2BEADE3300D9FC43 /* +View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+View.swift"; sourceTree = "<group>"; };
 		5522B4102BEAE11D00D9FC43 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		5522B4122BEAFCF900D9FC43 /* OffsetKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetKey.swift; sourceTree = "<group>"; };
+		5522B4142BEB087B00D9FC43 /* TaskItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +69,8 @@
 				5522B40C2BEADC2300D9FC43 /* Task.swift */,
 				5522B40E2BEADE3300D9FC43 /* +View.swift */,
 				5522B3FB2BEAD4F200D9FC43 /* ContentView.swift */,
+				5522B4142BEB087B00D9FC43 /* TaskItem.swift */,
+				5522B4122BEAFCF900D9FC43 /* OffsetKey.swift */,
 				5522B4102BEAE11D00D9FC43 /* DateExtension.swift */,
 				5522B3FD2BEAD4F500D9FC43 /* Assets.xcassets */,
 				5522B4022BEAD4F500D9FC43 /* Persistence.swift */,
@@ -154,7 +160,9 @@
 			files = (
 				5522B4032BEAD4F500D9FC43 /* Persistence.swift in Sources */,
 				5522B4112BEAE11D00D9FC43 /* DateExtension.swift in Sources */,
+				5522B4132BEAFCF900D9FC43 /* OffsetKey.swift in Sources */,
 				5522B3FC2BEAD4F200D9FC43 /* ContentView.swift in Sources */,
+				5522B4152BEB087B00D9FC43 /* TaskItem.swift in Sources */,
 				5522B40F2BEADE3300D9FC43 /* +View.swift in Sources */,
 				5522B40D2BEADC2300D9FC43 /* Task.swift in Sources */,
 				5522B3FA2BEAD4F200D9FC43 /* Task_UpApp.swift in Sources */,
