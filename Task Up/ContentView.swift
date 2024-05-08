@@ -21,6 +21,8 @@ struct ContentView: View {
     
     @State private var tasks: [Task] = sampleTask.sorted(by: { $1.date > $0.date })
     
+    @State private var createNewTask: Bool = false
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0, content:  {
             VStack(alignment: .leading, content: {
@@ -78,6 +80,22 @@ struct ContentView: View {
                     weekSlider.append(lastDate.createNextWeek())
                 }
             }
+        }
+        .overlay(alignment: .bottomTrailing) {
+            Button(action: {
+                createNewTask.toggle()
+            }, label: {
+                Image(systemName: "plus")
+                    .imageScale(.large)
+                    .padding(25)
+                    .background(.black)
+                    .clipShape(Circle())
+                    .padding([.horizontal])
+                    .foregroundColor(.white)
+            })
+            .fullScreenCover(isPresented: $createNewTask, content: {
+                NewTask()
+            })
         }
     }
     
