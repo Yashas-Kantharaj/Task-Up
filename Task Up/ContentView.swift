@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import CoreData
+import SwiftData
 
 struct ContentView: View {
     
@@ -18,9 +18,7 @@ struct ContentView: View {
     @Namespace private var animation
     
     @State private var createWeek: Bool = false
-    
-    @State private var tasks: [Task] = sampleTask.sorted(by: { $1.date > $0.date })
-    
+        
     @State private var createNewTask: Bool = false
     
     var body: some View {
@@ -57,7 +55,7 @@ struct ContentView: View {
             
             ScrollView(.vertical) {
                 VStack {
-                    taskView()
+                    TasksView(date: $currentDate)
                 }
                 .hSpacing(.center)
                 .vSpacing(.center)
@@ -169,24 +167,6 @@ struct ContentView: View {
                 currentWeekIndex = weekSlider.count - 2
             }
         }
-    }
-    
-    // Tasks View
-    @ViewBuilder
-    func taskView() -> some View {
-        VStack(alignment: .leading, content: {
-            ForEach($tasks) { $task in
-                TaskItem(task: $task)
-                    .background(alignment: .leading) {
-                        if tasks.last?.id != task.id {
-                            Rectangle()
-                                .frame(width: 1)
-                                .offset(x: 24, y: 45)
-                        }
-                    }
-            }
-        })
-        .padding(.top)
     }
 }
 #Preview {

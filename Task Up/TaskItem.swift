@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TaskItem: View {
-    @Binding var task: Task
+    @Bindable var task: Task
     
     var body: some View {
         HStack(alignment: .center, spacing: 15, content: {
@@ -44,7 +44,7 @@ struct TaskItem: View {
             })
             .frame(maxWidth: .infinity)
             .padding()
-            .background(task.tint.opacity(0.2))
+            .background(Color(task.tint).opacity(0.4))
             .clipShape(.rect(cornerRadius: 20))
         })
         .padding(.horizontal)

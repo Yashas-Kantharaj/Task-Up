@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct NewTask: View {
     @Environment(\.dismiss) var dismiss
-    @State private var tastTitle: String = ""
+    @State private var taskTitle: String = ""
     @State private var taskDate: Date = .init()
-    @State private var taskColor: Color = .purple
+    @State private var taskColor: String = "purple"
+    @State private var taskCaption: String = ""
+    
+    @Environment(\.modelContext) private var context
     
     
     var body: some View {
@@ -21,6 +25,10 @@ struct NewTask: View {
                     .onTapGesture {
                         dismiss()
                     }
+                VStack(spacing: 20, content: {
+                    TextField("Task Title", text: $taskTitle)
+                })
+                .padding(.top)
             })
             .hSpacing(.leading)
             .padding(30)
@@ -34,7 +42,7 @@ struct NewTask: View {
             // Task Title
             VStack(alignment: .leading, spacing: 30, content: {
                 VStack(spacing: 20, content: {
-                    TextField("Task Title", text: $tastTitle)
+                    TextField("Task Caption", text: $taskCaption)
                     Divider()
                 })
                 
@@ -49,13 +57,24 @@ struct NewTask: View {
                     Text("Task Color")
                         .font(.title3)
                     
-                    let colors: [Color] = [.yellow, .purple, .green, .red, .blue, .gray]
+                    let colors: [String] = (1...7).compactMap { index -> String in
+                        return "Color \(index)"
+                    }
                     
                     HStack(spacing: 10, content: {
                         ForEach(colors, id: \.self) { color in
                             Circle()
-                                .fill(color.opacity(0.2))
+                                .fill(Color(color).opacity(0.4))
+                                .background {
+                                    Circle().stroke(lineWidth: 2)
+                                        .opacity(taskColor == color ? 1 : 0)
+                                }
                                 .hSpacing(.center)
+                                .onTapGesture {
+                                    withAnimation(.snappy) {
+                                        taskColor = color
+                                    }
+                                }
                         }
                     })
                 })
@@ -64,7 +83,14 @@ struct NewTask: View {
             .vSpacing(.top)
             
             Button {
-                
+                let task = Task(title: taskTitle, caption: taskCaption, tint: taskColor)
+                do {
+                    context.insert(task)
+                    try context.save()
+                    dismiss()
+                } catch {
+                    print(error.localizedDescription)
+                }
             } label: {
                 Text("Create Task")
                     .frame(maxWidth: .infinity)

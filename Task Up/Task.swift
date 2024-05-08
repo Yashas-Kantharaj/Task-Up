@@ -6,23 +6,27 @@
 //
 
 import SwiftUI
+import SwiftData
 
-struct Task: Identifiable {
-    var id: UUID = .init()
+@Model
+class Task: Identifiable {
+    var id: UUID
     var title: String
     var caption: String
-    var date: Date = .init()
-    var isCompleted = false
-    var tint: Color
+    var date: Date
+    var isCompleted: Bool
+    var tint: String
+    
+    init(id: UUID = .init(), title: String, caption: String, date: Date = .init(), isCompleted: Bool = false, tint: String) {
+        self.id = id
+        self.title = title
+        self.caption = caption
+        self.date = date
+        self.isCompleted = isCompleted
+        self.tint = tint
+    }
 }
 
-
-var sampleTask: [Task] = [
-    .init(title: "t1", caption: "task1", tint: .yellow),
-    .init(title: "t2", caption: "task2", tint: .green),
-    .init(title: "t3", caption: "task3", tint: .red),
-    .init(title: "t4", caption: "task4", tint: .pink),
-]
 
 extension Data {
     static func updateHour(_ value: Int) -> Date {
