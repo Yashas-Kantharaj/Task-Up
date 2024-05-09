@@ -123,7 +123,7 @@ struct ContentView: View {
                             
                             if day.date.isToday {
                                 Circle()
-                                    .fill(.white)
+                                    .fill(.red)
                                     .frame(width: 5, height: 5)
                                     .vSpacing(.bottom)
                             }
@@ -144,7 +144,7 @@ struct ContentView: View {
                 Color.clear
                     .preference(key: OffsetKey.self, value: minX)
                     .onPreferenceChange(OffsetKey.self, perform: { value in
-                        if value.rounded() == 15 && createWeek {
+                        if value.rounded() == 14 && createWeek {
                             paginateWeek()
                             createWeek = false
                         }

@@ -27,12 +27,12 @@ extension Date {
         
         var week: [WeekDay] = []
         let weekDate = calendar.dateInterval(of: .weekOfMonth, for: startDate)
-        guard (weekDate?.start) != nil else {
+        guard let weekDate = weekDate?.start else {
             return []
         }
         
         (0..<7).forEach { index in
-            if let weekDay = calendar.date(byAdding: .day, value: index, to: startDate) {
+            if let weekDay = calendar.date(byAdding: .day, value: index, to: weekDate) {
                 week.append(.init(date: weekDay))
             }
         }

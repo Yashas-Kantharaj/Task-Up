@@ -33,13 +33,6 @@ struct TasksView: View {
         VStack(alignment: .leading, content: {
             ForEach(tasks) { task in
                 TaskItem(task: task)
-                    .background(alignment: .leading) {
-                        if tasks.last?.id != task.id {
-                            Rectangle()
-                                .frame(width: 1)
-                                .offset(x: 24, y: 45)
-                        }
-                    }
             }
         })
         .padding(.top)

@@ -12,16 +12,24 @@ struct NewTask: View {
     @Environment(\.dismiss) var dismiss
     @State private var taskTitle: String = ""
     @State private var taskDate: Date = .init()
-    @State private var taskColor: String = "purple"
+    @State private var taskColor: String = "Color 1"
     @State private var taskCaption: String = ""
+    @State private var alert = false
+    private var task: Task?
+    private var isUpdate = false
+    
     
     @Environment(\.modelContext) private var context
     
+    init(task: Task? = nil) {
+        self.task = task
+        self.isUpdate = self.task != nil
+    }
     
     var body: some View {
         VStack(alignment: .leading, content: {
             VStack(alignment: .leading, content: {
-                Label("Add New Task", systemImage: "arrow.left")
+                Label(isUpdate ? "Update Task" : "Add New Task", systemImage: "arrow.left")
                     .onTapGesture {
                         dismiss()
                     }
@@ -83,16 +91,27 @@ struct NewTask: View {
             .vSpacing(.top)
             
             Button {
-                let task = Task(title: taskTitle, caption: taskCaption, tint: taskColor)
-                do {
+                guard !taskTitle.isEmpty, !taskCaption.isEmpty else {
+                    alert = true
+                    return
+                }
+                if isUpdate {
+                    task?.title = taskTitle
+                    task?.caption = taskCaption
+                    task?.date = taskDate
+                    task?.tint = taskColor
+                } else {
+                    let task = Task(title: taskTitle, caption: taskCaption, date: taskDate, tint: taskColor)
                     context.insert(task)
+                }
+                do {
                     try context.save()
                     dismiss()
                 } catch {
                     print(error.localizedDescription)
                 }
             } label: {
-                Text("Create Task")
+                Text(isUpdate ? "Update Task" : "Create Task")
                     .frame(maxWidth: .infinity)
                     .frame(height: 60)
                     .foregroundColor(.white)
@@ -100,8 +119,19 @@ struct NewTask: View {
                     .clipShape(.rect(cornerRadius: 20))
                     .padding(.horizontal, 30)
             }
+            .alert(isPresented: $alert) {
+                Alert(title: Text("Task"), message: Text("Please add your Task's Title and Caption"), dismissButton: .cancel())
+            }
         })
         .vSpacing(.top)
+        .onAppear {
+            if let task = task, isUpdate {
+                taskTitle = task.title
+                taskCaption = task.caption
+                taskDate = task.date
+                taskColor = task.tint
+            }
+        }
     }
 }
 
