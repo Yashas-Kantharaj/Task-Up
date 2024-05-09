@@ -14,6 +14,7 @@ struct ContentView: View {
     
     @State var weekSlider: [[Date.WeekDay]] = []
     @State var currentWeekIndex: Int = 1
+    @State var currentMonth: String = ""
     
     @Namespace private var animation
     
@@ -27,12 +28,15 @@ struct ContentView: View {
                 Text("Calender")
                     .font(.system(size: 36, weight: .semibold))
                 
+                Text("\(currentMonth)")
+                    .fontWeight(.bold)
+                    .offset(y: 5)
+                
                 //Week Slider
                 TabView(selection: $currentWeekIndex,
                         content:  {
                     ForEach(weekSlider.indices, id: \.self) { index in
                         let week = weekSlider[index]
-                        
                         weekView(week)
                             .tag(index)
                     }
@@ -77,6 +81,7 @@ struct ContentView: View {
                 if let lastDate = currentWeek.last?.date {
                     weekSlider.append(lastDate.createNextWeek())
                 }
+                getMonth()
             }
         }
         .overlay(alignment: .bottomTrailing) {
@@ -144,7 +149,8 @@ struct ContentView: View {
                 Color.clear
                     .preference(key: OffsetKey.self, value: minX)
                     .onPreferenceChange(OffsetKey.self, perform: { value in
-                        if value.rounded() == 14 && createWeek {
+                        if value.rounded() == 16 && createWeek {
+                            getMonth()
                             paginateWeek()
                             createWeek = false
                         }
@@ -166,6 +172,14 @@ struct ContentView: View {
                 weekSlider.removeFirst()
                 currentWeekIndex = weekSlider.count - 2
             }
+        }
+    }
+    
+    func getMonth() {
+        if let firstDate = weekSlider[currentWeekIndex].first?.date, let lastDate = weekSlider[currentWeekIndex].last?.date {
+            let first = firstDate.format("MMM")
+            let last = lastDate.format("MMM")
+            currentMonth = first == last ? first : "\(first)-\(last)"
         }
     }
 }

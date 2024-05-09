@@ -69,7 +69,7 @@ struct TaskItem: View {
             },
             onTapLeft: {
                 return task
-            }, 
+            },
             onTapRight: {
                 deleteTaskTap()
             })
