@@ -17,7 +17,6 @@
 		5522B4152BEB087B00D9FC43 /* TaskItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5522B4142BEB087B00D9FC43 /* TaskItem.swift */; };
 		5522B4172BEB16AF00D9FC43 /* NewTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5522B4162BEB16AF00D9FC43 /* NewTask.swift */; };
 		5522B4192BEB483500D9FC43 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5522B4182BEB483400D9FC43 /* TasksView.swift */; };
-		5522B41C2BEB59CD00D9FC43 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5522B41B2BEB59CD00D9FC43 /* Preview Assets.xcassets */; };
 		5522B41E2BEC0D3700D9FC43 /* TasksSwipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5522B41D2BEC0D3600D9FC43 /* TasksSwipe.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,7 +32,6 @@
 		5522B4142BEB087B00D9FC43 /* TaskItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItem.swift; sourceTree = "<group>"; };
 		5522B4162BEB16AF00D9FC43 /* NewTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTask.swift; sourceTree = "<group>"; };
 		5522B4182BEB483400D9FC43 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
-		5522B41B2BEB59CD00D9FC43 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = "Preview Assets.xcassets"; path = "Task Up/Preview Assets.xcassets"; sourceTree = SOURCE_ROOT; };
 		5522B41D2BEC0D3600D9FC43 /* TasksSwipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksSwipe.swift; sourceTree = "<group>"; };
 		5522B4232BEC61AA00D9FC43 /* Task-Up-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Task-Up-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -80,17 +78,8 @@
 				5522B4122BEAFCF900D9FC43 /* OffsetKey.swift */,
 				5522B4102BEAE11D00D9FC43 /* DateExtension.swift */,
 				5522B3FD2BEAD4F500D9FC43 /* Assets.xcassets */,
-				5522B41A2BEB597B00D9FC43 /* Preview Content */,
 			);
 			path = "Task Up";
-			sourceTree = "<group>";
-		};
-		5522B41A2BEB597B00D9FC43 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				5522B41B2BEB59CD00D9FC43 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,7 +140,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5522B41C2BEB59CD00D9FC43 /* Preview Assets.xcassets in Resources */,
 				5522B3FE2BEAD4F500D9FC43 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -305,7 +293,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Task Up/Preview Content\"";
 				DEVELOPMENT_TEAM = GA7C535R7S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -341,7 +328,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Task Up/Preview Content\"";
 				DEVELOPMENT_TEAM = GA7C535R7S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
